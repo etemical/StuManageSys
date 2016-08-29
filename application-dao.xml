@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=
+	"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	 http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	 http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- 泛型Dao的配置 -->
+     <bean id="genericDao" class="com.mical.base.GenericDaoImpl" >
+        <property name="sessionFactory" ref="sessionFactory"></property>
+     </bean>
+
+    <!-- 学生Dao -->
+    <bean id="stuDao" class="com.mical.student.dao.StudentDaoImpl">
+    	 <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+    
+    <!-- 班级Dao -->
+    <bean id="classesDao" class="com.mical.classes.dao.ClassesDaoImpl" parent="genericDao">
+    	
+    </bean>
+    
+    <!-- 学校Dao -->
+      <bean id="schoolDao" class="com.mical.school.dao.SchoolDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    
+     <!-- 用户Dao -->
+      <bean id="userInfoDao" class="com.mical.user.dao.UserInfoDaoImpl">
+    	<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+    
+    <!-- 课程阶段Dao -->
+      <bean id="courseStageDao" class="com.mical.course.dao.CourseStageDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    
+    <!-- 课程Dao -->
+      <bean id="courseDao" class="com.mical.course.dao.CourseDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    
+     
+    <!-- 课程类型Dao -->
+      <bean id="courseTypeDao" class="com.mical.course.dao.CourseTypeDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    
+    <!-- 成绩Dao -->
+      <bean id="gradeDao" class="com.mical.grades.dao.GradeDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    
+    <!-- 考勤Dao -->
+      <bean id="attendDao" class="com.mical.attendance.dao.AttendDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    
+    <!-- 缺勤原因Dao -->
+      <bean id="reasonDao" class="com.mical.attendance.dao.ReasonDaoImpl" parent="genericDao">
+    	<!--<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    --></bean>
+    <!--晚自习Dao -->
+   <bean id="nightDao" class="com.mical.night.dao.NightDaoImpl" parent="genericDao">
+   
+   </bean>
+   <!--角色Dao -->
+   <bean id="roleDao" class="com.mical.authority.dao.RoleDaoImpl">
+   	<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+   </bean>
+   
+   <!--用户组Dao -->
+   <bean id="userGroupDao" class="com.mical.authority.dao.UserGroupDaoImpl">
+   	<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+   </bean>
+    
+     <!--权限Dao -->
+   <bean id="permissionDao" class="com.mical.authority.dao.PermissionDaoImpl">
+   	<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+   </bean>
+    
+</beans> 

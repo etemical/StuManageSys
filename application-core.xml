@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+    <property name="driver">
+        <value>${jdbc.driverClass}</value>
+    </property>
+    <property name="driverUrl">
+        <value>${jdbc.url}</value>
+    </property>
+    <property name="user" value="${jdbc.user}" />
+    <property name="password" value="${jdbc.pwd}" />
+    <property name="alias" value="${jdbc.alias}" />
+   
+    <property name="prototypeCount" value="2" />
+    <property name="maximumConnectionCount" value="4" />
+    <property name="minimumConnectionCount" value="2" />
+    <property name="simultaneousBuildThrottle" value="2" />
+    <property name="houseKeepingTestSql" value="select CURRENT_DATE" />
+</bean>
+  
+   
+	
+    
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+			<!-- 配置数据库方言 -->
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 批量更新的大小（增加，删除，更新） -->
+				<prop key="hibernate.jdbc.batch_size">18</prop>
+				<!-- 输出并格式化sql语句 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 启用二级缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<!-- 设置提供二级缓存的类 -->
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- 启用查询缓存 -->
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+		
+		<!-- 通过通配符加载类路径下所有的*.hbm.xml -->
+		<property name="mappingLocations">
+		  <list>
+		     <value>classpath*:com/**/entity/*.hbm.xml</value>
+		  </list>
+		</property> 
+	</bean>
+	
+	<!-- 配置hibernateTemplate以启用查询缓存-->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	    <property name="sessionFactory" ref="sessionFactory"></property>
+	    <property name="cacheQueries" value="true"></property>
+	</bean>
+	  
+	  
+	 <import resource="classpath:context-config.xml"/>
+</beans>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	
+	<!-- Struts2的Action的配置
+	把struts2的action交给spring来管理
+	 -->
+	 <!-- 学生管理模块Action -->
+	 <bean id="studentAction" class="com.mical.student.action.StudentAction" scope="prototype">
+	    <property name="stuService" ref="studentService"></property>
+	 </bean>
+	  
+	  <!-- 班级管理模块Action -->
+	  <bean id="classesAction" class="com.mical.classes.action.ClassesAction" scope="prototype">
+	     <property name="classesService" ref="classesService"></property>
+	  </bean>
+	  	
+	  <!--  学校模块Action -->
+	<bean id="schoolAction" class="com.mical.school.action.SchoolAction" scope="prototype">
+	     <property name="schoolService" ref="schoolService"></property>
+	  </bean>
+	  
+	  <!-- 用户模块Action -->
+	<bean id="userInfoAction" class="com.mical.user.action.UserInfoAction" scope="prototype">
+	     <property name="userInfoService" ref="userInfoService"></property>
+	  </bean>
+	  
+	 <!-- 课程阶段模块Action -->
+	<bean id="courseStageAction" class="com.mical.course.action.CourseStageAction" scope="prototype">
+	     <property name="courseStageService" ref="courseStageService"></property>
+	  </bean>
+	  
+	 <!-- 课程模块Action -->
+	<bean id="courseAction" class="com.mical.course.action.CourseAction" scope="prototype">
+	     <property name="courseService" ref="courseService"></property>
+	  </bean>
+	  
+	  <!-- 课程类型模块Action -->
+	<bean id="courseTypeAction" class="com.mical.course.action.CourseTypeAction" scope="prototype">
+	     <property name="courseTypeService" ref="courseTypeService"></property>
+	  </bean>
+	  
+	    <!-- 成绩模块Action -->
+	<bean id="gradeAction" class="com.mical.grades.action.GradeAction" scope="prototype">
+	     <property name="gradeService" ref="gradeService"></property>
+	  </bean>
+	  
+	   <!-- 考勤管理模块Action -->
+	<bean id="attendAction" class="com.mical.attendance.action.AttendAction" scope="prototype">
+	     <property name="attendService" ref="attendService"></property>
+	  </bean>
+	  
+	     <!-- 缺课原因模块Action -->
+	 <bean id="reasonAction" class="com.mical.attendance.action.ReasonAction" scope="prototype">
+	     <property name="reasonService" ref="reasonService"></property>
+	  </bean>
+	  
+	  <!-- 晚自习考勤 -->
+	  <bean id="nightAction" class="com.mical.night.action.NightAction" scope="prototype">
+	    <property name="nightService" ref="nightService"></property>
+	  
+	  </bean>
+    <!--  电子邮件 -->
+       <bean id="emailAction" class="com.mical.user.action.EmailAction" scope="prototype">
+         <property name="userInfoService" ref="userInfoService"></property>
+       </bean>
+     
+      <!-- 用户组,角色,权限 Action -->
+      <bean id="authorityAction" class="com.mical.authority.action.AuthorityAction" scope="prototype">
+         <property name="groupService" ref="userGroupService"></property>
+         <property name="roleService" ref="roleService"></property>
+         <property name="permissionService" ref="permissionService"></property>
+         
+       </bean>
+	 <!-- 上传文件 -->
+	   <bean id="uploadAction" class="com.mical.student.action.UploadAction" scope="prototype">
+	   <property name="stuService" ref="studentService"></property>
+       </bean>
+       
+       <!-- 下载文件 -->
+	   <bean id="downloadAction" class="com.mical.student.action.DownloadAction" scope="prototype">
+	   
+       </bean>
+</beans>

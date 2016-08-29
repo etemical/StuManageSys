@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+ "http://struts.apache.org/dtds/struts-2.1.7.dtd" >
+ 
+<struts>
+  
+<!-- 设置拦截器 -->
+    <package name="default" extends="json-default">
+      <interceptors>
+       <interceptor name="validateUser" class="com.mical.util.interceptor.LoginFilter"></interceptor>
+       
+       <interceptor-stack name="validateStack">
+         <interceptor-ref name="defaultStack"></interceptor-ref>
+         <interceptor-ref name="validateUser"></interceptor-ref>
+       </interceptor-stack>
+      </interceptors>
+      
+    <!--设置验证用户登录的拦截器为默认拦截器 -->
+      <default-interceptor-ref name="validateStack"> </default-interceptor-ref>
+    <global-results>
+       <result name="returnLogin" type="chain">
+       <param name="actionName">logoutAction</param>
+        <param name="namespace">/systemManager</param>
+        
+       </result>
+    </global-results>
+    
+    
+    </package>   
+    
+    <package name="logoutModel" namespace="/systemManager" extends="json-default">
+      <action name="logoutAction" class="com.mical.util.interceptor.LogoutAction">
+      
+       <result type="json"></result>
+    </action>
+    </package>
+   
+   <!-- 设置拦截器 -->
+   <!--<package name="default" extends="json-default">
+    
+      <interceptors>
+        <interceptor name="validateUser" class="com.xxxx.LoginValidate"></interceptor>
+      </interceptors> 
+      
+       设置验证用户登录的拦截器为默认拦截器 
+      <default-interceptor-ref name="validateUser"></default-interceptor-ref>
+    
+   </package>
+   -->
+
+   <include file="com/mical/student/action/struts-student.xml"></include>
+   <include file="com/mical/classes/action/struts-classes.xml"></include>
+   <include file="com/mical/school/action/struts-school.xml"></include>
+   <include file="com/mical/user/action/struts-user.xml"></include>
+   <include file="com/mical/course/action/struts-course.xml"></include>
+   <include file="com/mical/grades/action/struts-grades.xml"></include>
+   <include file="com/mical/attendance/action/struts-attend.xml"></include>
+   <include file="com/mical/night/action/struts-night.xml"></include>
+   <include file="com/mical/authority/action/struts-userGroup.xml"></include>    
+     
+  <!-- 配置一个通用的路径跳转action ，为了遵循MVC的思想 -->
+    <!--设置浏览器是否缓存静态内容 (开发阶段最好设为false)，生产阶段可以打开-->
+	<constant name="struts.serve.static.browserCache" value="false"></constant>
+	
+	<!-- 是否启用开发模式 (开发阶段最好设为true)，生产阶段可以关闭-->
+	<constant name="struts.devMode" value="true"></constant>
+
+	<!-- 当HTTP每次到达时，重新加载资源文件 (开发阶段最好设为true)，生产阶段可以关闭 -->
+	<constant name="struts.i18n.reload" value="true"></constant>
+	
+	<!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+    <constant name="struts.configuration.xml.reload" value="true"/>
+	
+	<!-- 解决struts2的form表单提交乱码(post方式) -->
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	
+	<!--允许访问静态成员 -->
+    <constant name="struts.ognl.allowStaticMethodAccess" value="false"></constant>
+
+	<!-- 设置action的后缀名为.do (不写或者写.do)-->
+	<constant name="struts.action.extension" value="do,"></constant>
+	
+	<!-- 配置struts2的国际化资源文件 -->
+    <constant name="struts.custom.i18n.resources" value="applicationMessage"></constant>
+    
+</struts>
